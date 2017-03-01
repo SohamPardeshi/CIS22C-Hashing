@@ -245,7 +245,7 @@ public:
         
         delete entryPtr;
         num--;
-        cout << "current size: " << num << endl;
+        //cout << "current size: " << num << endl;
     }
 
     string* csv2arr(string line)

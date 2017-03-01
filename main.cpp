@@ -19,8 +19,9 @@ using namespace std;
 void menu()
 {
     cout << "************************************************************************************************" << endl;
-    cout << "*                              Welcome to CIS22C-Lab 6                                         *" << endl;
+    cout << "*                              Welcome to CIS22C-Group Project                                 *" << endl;
     cout << "*                                 Student: Xu Tang                                             *" << endl;
+    cout << "*                  Group: Soham Pardeshi, Ben Fong, Samantha Seymour                           *" << endl;
     cout << "*                                                                                              *" << endl;
     cout << "* This program will demonstrate:                                                               *" << endl;
     cout << "*  + Redo the PriorityQueue assignment using your BinaryTree structure from Lab#5.             *" << endl;
@@ -42,12 +43,21 @@ void menu()
 
 string trim(string s)
 {
+    // Find absence of character in string
     size_t p = s.find_first_not_of(" \t");
-    s.erase(0, p);
 
+    // Erase characters from string
+    s.erase(0, p); 
+
+    // Finds the last character equal to none of the 
+    // characters in the given character sequence. 
     p = s.find_last_not_of(" \t");
+
     if (string::npos != p)
+    {
         s.erase(p + 1);
+    }
+        
 
     return s;
 }
