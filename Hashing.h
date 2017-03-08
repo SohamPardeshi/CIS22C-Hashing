@@ -1,9 +1,13 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream>
+#include <iomanip>
+
+using namespace std;
 
 #ifndef _CIS22C_HASHING
 #define _CIS22C_HASHING
-
-#include <iostream>
-using namespace std;
 
 // definition begin **********************************************************************************
 // Node class
@@ -48,7 +52,7 @@ public:
 };
 
 
-// Interface of PriorityQueue
+// Interface of Hash Tree
 template <class K, class V, class H>
 class HashMap {
 private:
@@ -69,6 +73,98 @@ public:
         }
     }
 
+    void menu()
+    {
+        cout << "************************************************************************************************" << endl;
+        cout << "*                              Welcome to CIS22C-Group Project                                 *" << endl;
+        cout << "*                                 Student: Xu Tang                                             *" << endl;
+        cout << "*                  Group: Soham Pardeshi, Ben Fong, Samantha Seymour                           *" << endl;
+        cout << "*                                                                                              *" << endl;
+        cout << "* This program will demonstrate:                                                               *" << endl;
+        cout << "*  + Hashing                                                                                   *" << endl;
+        cout << "*                                                                                              *" << endl;
+        cout << "* Choices:                                                                                     *" << endl;
+        cout << "*  0) Back to main menu                                                                        *" << endl;
+        cout << "*  1) Import Data                                                                              *" << endl;
+        cout << "*  2) Dispaly hash tree                                                                        *" << endl;
+        cout << "*  3) Find key                                                                                 *" << endl;
+        cout << "*  4) Test all                                                                                 *" << endl;
+        cout << "*  5) Get current size                                                                         *" << endl;
+        cout << "************************************************************************************************" << endl;
+    }
+
+    void main()
+    {
+        
+        bool exit = false;
+        int input;
+
+        do
+        {
+            system("cls");
+            menu(); // Show welcome message
+            cout << "Please enter your choice [0-4]:";
+            cin >> input;
+
+            if (input == 1)
+            {
+                importDataFile("UProducts.csv");
+                system("pause");
+            }
+            else if (input == 2)
+            {
+                display();
+                system("pause");
+            }
+            else if (input == 3)
+            {
+                bool cont = true;
+                string key;
+                double val;
+                //cin.clear();
+                cin.ignore(INT_MAX, '\n');
+
+                do
+                {
+                    cout << "Find entry by key, please enter a key [Enter x to exit]: ";
+                    getline(cin, key);
+                    key = trim(key);
+
+                    if (key != "x")
+                    {
+                        if (val = get(key))
+                        {
+                            cout << "Value of " << key << " found: " << val << endl;
+                        }
+                        else
+                        {
+                            cout << key << " doen't exist in hash table." << endl;
+                        }
+                    }
+                    else
+                    {
+                        cont = false;
+                    }
+                } while (cont);
+                system("pause");
+            }
+            else if (input == 4)
+            {
+                testAll("UProducts.csv");
+                system("pause");
+            }
+            else if (input == 5)
+            {
+                cout << "Current size: " << size() << endl;
+                system("pause");
+            }
+            else
+            {
+                exit = true;
+            }
+        } while (exit != true);
+    }
+
     int string2ascii(string s)
     {
         int sum = 0;
@@ -78,6 +174,27 @@ public:
         }
 
         return sum;
+    }
+
+    string trim(string s)
+    {
+        // Find absence of character in string
+        size_t p = s.find_first_not_of(" \t");
+
+        // Erase characters from string
+        s.erase(0, p);
+
+        // Finds the last character equal to none of the 
+        // characters in the given character sequence. 
+        p = s.find_last_not_of(" \t");
+
+        if (string::npos != p)
+        {
+            s.erase(p + 1);
+        }
+
+
+        return s;
     }
 
 
