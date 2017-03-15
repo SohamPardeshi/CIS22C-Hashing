@@ -86,7 +86,7 @@ public:
         cout << "* Choices:                                                                                     *" << endl;
         cout << "*  0) Back to main menu                                                                        *" << endl;
         cout << "*  1) Import Data                                                                              *" << endl;
-        cout << "*  2) Dispaly hash tree                                                                        *" << endl;
+        cout << "*  2) Display hash tree                                                                        *" << endl;
         cout << "*  3) Find key                                                                                 *" << endl;
         cout << "*  4) Test all                                                                                 *" << endl;
         cout << "*  5) Get current size                                                                         *" << endl;

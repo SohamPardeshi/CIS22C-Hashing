@@ -44,12 +44,12 @@ public:
         cout << "*                  Group: Soham Pardeshi, Ben Fong, Samantha Seymour                           *" << endl;
         cout << "*                                                                                              *" << endl;
         cout << "* This program will demonstrate:                                                               *" << endl;
-        cout << "*  + Bloom Fileter                                                                             *" << endl;
+        cout << "*  + Bloom Filter                                                                             *" << endl;
         cout << "*                                                                                              *" << endl;
         cout << "* Choices:                                                                                     *" << endl;
         cout << "*  0) Back to main menu                                                                        *" << endl;
         cout << "*  1) Import Data                                                                              *" << endl;
-        cout << "*  2) Dispaly filter                                                                           *" << endl;
+        cout << "*  2) Display filter                                                                           *" << endl;
         cout << "*  3) Find a word                                                                              *" << endl;
         cout << "*  4) Test all                                                                                 *" << endl;
         cout << "*  5) Get current size                                                                         *" << endl;
@@ -97,11 +97,11 @@ public:
                     {
                         if (contains(key))
                         {
-                            cout << "Found" << endl;
+                            cout << "May contain" << endl;
                         }
                         else
                         {
-                            cout << "Not found" << endl;
+                            cout << "Does not contain" << endl;
                         }
                     }
                     else
@@ -203,7 +203,7 @@ public:
     }
 
 
-    int hashFunc2(string k) // hash function
+    int hashFunc2(string k) // Robert Sedgewick's String Hashing Algorithm
     {
         unsigned int b = 378551;
         unsigned int a = 63689;
@@ -220,7 +220,7 @@ public:
         return hash % capacity;
     }
 
-    int hashFunc3(K& str) {
+    int hashFunc3(K& str) { // DJB Hash Function
         unsigned int len = str.length();
         unsigned int hash = 5381;
         unsigned int i = 0;
@@ -233,11 +233,22 @@ public:
         return hash % capacity;
     }
 
+	int hashFunc4(K& str) { // FNV1-A Implementation
+		unsigned int hash = 0x811c9dc5; // FNV1-A Default 32-bit Offset
+		for (int i = 0; i < str.length(); i++) {
+			hash ^= str[i];
+			hash *= 16777619; // FNV1-A Default 32-bit Prime
+		}
+
+		return hash % capacity;
+	}
+
     void add(K key) // insert 
     {
         unsigned int hash1 = hashFunc1(key);
         unsigned int hash2 = hashFunc2(key);
         unsigned int hash3 = hashFunc3(key);
+		unsigned int hash4 = hashFunc4(key);
 
         //cout << "hash: " 
         //    << setw(20) << hash1 
@@ -248,7 +259,8 @@ public:
         table[hash1] = 1;
         table[hash2] = 1;
         table[hash3] = 1;
-    }
+		table[hash4] = 1;
+	}
 
     bool contains(K key)               // find entry with key k
     {
